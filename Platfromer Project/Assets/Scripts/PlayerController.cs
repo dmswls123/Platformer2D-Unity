@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public float JumpForce = 5f; // 캐릭터 점프
     private float moveInput; // 플레이어의 방향 및 인풋 데이터 저장 변수
 
-    public Transform startTransform; // 캐릭터가 시작할 위치를 저장하는 변수
+    //public Transform startTransform; // 캐릭터가 시작할 위치를 저장하는 변수
     public Rigidbody2D rigidbody2D;  // 물리(강체) 기능을 제어하는 컴포넌트
 
     [Header("점프")]
@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
     {
 
         // 현재 내 위치를 startTransform으로 변경
-        transform.position = startTransform.position;
+        //transform.position = startTransform.position;
         // 땅에 떨어지는 속도 설정
         rigidbody2D.velocity = Vector2.zero;
         // 왼쪽 보고 떨어져도 다시 처음 설정할때 오른쪽 바라보게

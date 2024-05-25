@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerCam : MonoBehaviour
 {
     // 벡터의 연산으로 구현
 
@@ -15,12 +16,17 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //playerTransform = transform; //(gameObject) 가져와서 Prefab생성된 PlayerTransform위치를 이 데이터에 넣어줘야 함
         // transform = 카메라, 벡터의 합, 빼기 -> A - B: B에서 출발해서 A까지 이동하는 화살표
         offset = transform.position - playerTransform.position; //최초의 거리만 지정
 
         fixedYPosition = transform.position.y;
     }
 
+    public void SetOffset()
+    {
+        offset=transform.position-playerTransform.position;
+    }
     // Lerp. Linear Interpolation 선형 보간
     // 양 끝점을 알 때, 두 점 사이의 임의의 위치를 쉽게 파악하기 위한 수학적 개념
     // 두 점(Point) - (Vector3). 카메라의 현재 위치. 이동 하고 싶은 위치, 카메라 -> ( Point) -> 목표
