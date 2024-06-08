@@ -9,6 +9,8 @@ public class Trap_Saw : Trap
     public float speed = 5f;
     public int moveIndex = 0;
     public bool OnGoingForward = true;
+    public bool IsTrapOn=true;
+    public float stoptime=1f;
     private void Start()
     {
         anim = GetComponent<Animator>(); // 애니메이션 초기화
@@ -18,7 +20,20 @@ public class Trap_Saw : Trap
     private void Update()  // 컴퓨터 성능 영향을 받는다.
     {
         anim.SetBool("isWorking", isWorking);
-        MoveTrap();
+
+        //코루틴은 업데이트문에 넣으면 안됨
+        //IsTrapOn에 따라 MoveTrap을 실행
+        if (IsTrapOn==true) 
+        { 
+            MoveTrap();
+        }
+    }
+
+    IEnumerator CoMoveTrap()
+    {
+        IsTrapOn = false;
+        yield return new WaitForSeconds(stoptime);
+        IsTrapOn = true;
     }
 
     private void MoveTrap()
@@ -30,6 +45,7 @@ public class Trap_Saw : Trap
         if (Vector3.Distance(transform.position, movePositions[moveIndex].position) <= 0.1f)
         {
             moveIndex++;
+            StartCoroutine(CoMoveTrap());
         }
         
         // 다음 목표 지점이 없으면 moveInde=0으로 해라.
