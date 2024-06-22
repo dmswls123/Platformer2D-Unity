@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = false;
     private int facingDirection = 1;
 
+    [SerializeField] ParticleController particleController;
+
     public Animator animator;
     private bool isMove;
 
@@ -97,6 +99,8 @@ public class PlayerController : MonoBehaviour
     private void CollisionCheck()
     {
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundDistance, groundLayer); // 광선을 쏴서 ~머시기
+
+        particleController.isGround = isGrounded;
     }
     /// <summary>
     ///  // 플레이어의 입력 값을 받아와야 함. a,d 키보드 좌 우 키를 눌렀을 때 -1 ~ 1 반환하는 클래스
@@ -104,6 +108,12 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void HandleInput()
     {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            AudioManager.Instance.PlaySFX(8);
+            particleController.PlayParticle();
+        }
+
         moveInput = Input.GetAxis("Horizontal"); // 수평에 있는 축 데이터 값을 받아오는 것
        
         JumpButton();
@@ -141,12 +151,17 @@ public class PlayerController : MonoBehaviour
         {
             // 점프: Y position _ rigidbody Y velocity를 점프 파워만큼 올려주면 됨
             Jump();
+            
         }
     }
 
     private void Jump()
     {
+        // 점프 사운드 출력
+        // SFX 배열에 등록된 효과음 출력 숫자 2는 jmp1에 해당함.
+        AudioManager.Instance.PlaySFX(2);
         rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, JumpForce);
+        particleController.PlayJumpParticle();
     }
 
     private void OnDrawGizmos()
