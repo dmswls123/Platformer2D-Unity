@@ -110,8 +110,13 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            AudioManager.Instance.PlaySFX(8);
             particleController.PlayParticle();
+            if (AudioManager.Instance == null)
+            {
+                Debug.LogWarning($"{nameof(AudioManager.Instance)}에 instance가 없습니다.");
+                return;
+            }
+            AudioManager.Instance.PlaySFX(8);
         }
 
         moveInput = Input.GetAxis("Horizontal"); // 수평에 있는 축 데이터 값을 받아오는 것
@@ -126,7 +131,7 @@ public class PlayerController : MonoBehaviour
         {
             Flip();
         }
-        // 왼쪽 방향으로 바라보고 있을 때
+        // 왼쪽방향으로 바라보고 있을 때
         else if(!facingRight && moveInput > 0)
         {
             Flip();
@@ -159,9 +164,14 @@ public class PlayerController : MonoBehaviour
     {
         // 점프 사운드 출력
         // SFX 배열에 등록된 효과음 출력 숫자 2는 jmp1에 해당함.
-        AudioManager.Instance.PlaySFX(2);
         rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, JumpForce);
         particleController.PlayJumpParticle();
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning($"{nameof(AudioManager)}에 instance가 없습니다.");
+            return;
+        }
+        AudioManager.Instance.PlaySFX(2);
     }
 
     private void OnDrawGizmos()

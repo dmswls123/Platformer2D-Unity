@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
             default: name = $"키: {difficulty} 존재하지 않는 키 값입니다.";
                 break;
         }
-        return $"선택한 난이도: {name}";
+        return $"{name}";
     }
 
     public void SaveGameDifficulty()
