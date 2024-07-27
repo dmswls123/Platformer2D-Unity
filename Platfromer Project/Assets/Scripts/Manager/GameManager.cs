@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     // 싱글톤
     public static GameManager instance; //GameManager.instance
     public int difficulty; // 0: 이지, 1:노말, 2:하드 로 설정할거임
-    public float score; 
+    public float score;
+    public bool gameClear;
 
     private void Update()
     {
@@ -62,5 +63,9 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void GameClear()
+    {
+        MainController.instance.GameSuccess();
+    }
 
 }

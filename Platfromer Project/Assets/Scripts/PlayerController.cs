@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     // 움직이기 위해서 필요한 것: 속도, 방향
     [Header("플레이어 입력")]
-    public float moveSpeed = 5f;  // 캐릭터의 이동 속도 변수
+    public float moveSpeed = 10f;  // 캐릭터의 이동 속도 변수
     public float JumpForce = 5f; // 캐릭터 점프
     private float moveInput; // 플레이어의 방향 및 인풋 데이터 저장 변수
 
@@ -31,12 +31,20 @@ public class PlayerController : MonoBehaviour
     private bool facingRight = false;
     private int facingDirection = 1;
 
+    [Header("HP")]
+    public int currentHp;
+    public int maxHp=5;  // 데이터를 저장해두는 용도
+
+
     [SerializeField] ParticleController particleController;
 
     public Animator animator;
     private bool isMove;
 
-
+    private void Awake()
+    {
+        currentHp = maxHp;
+    }
     void Start()
     {
         rigidbody2D = GetComponent<Rigidbody2D>();

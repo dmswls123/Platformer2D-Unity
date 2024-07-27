@@ -10,6 +10,7 @@ public class MainController : MonoBehaviour
 
     public static MainController instance;
     public GameObject GameOverPanel;
+    public GameObject GameSuccessPanel;
 
     [Header("Score")]
     public TextMeshProUGUI CurrentScore;
@@ -48,6 +49,12 @@ public class MainController : MonoBehaviour
         }
         else // 현재 점수가 최고 점수보다 낮을 때 기존의 최고 점수를 불러온다
             BestScore.text = $"최고점수 : {PlayerPrefs.GetFloat(GameData.BestScore)}";
+    }
+
+    public void GameSuccess()
+    {
+        GameSuccessPanel.SetActive(true);
+        BestScore.text = $"최고점수 : {PlayerPrefs.GetFloat(GameData.BestScore)}"; // 점수가 안뜸
     }
 
     public void LoadMainMenu()
