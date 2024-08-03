@@ -50,8 +50,7 @@ public class Pattern04 : MonoBehaviour
 
         gameObject.SetActive(false);
 
-        GameManager.instance.gameClear = true;
-        GameManager.instance.GameClear();
+        
         
 
     }

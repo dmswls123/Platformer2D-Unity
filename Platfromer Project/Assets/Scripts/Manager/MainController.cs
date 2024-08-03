@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -18,7 +20,30 @@ public class MainController : MonoBehaviour
     private float score;
     public TextMeshProUGUI Level;
 
-   
+    public bool isGameStart=false; // 게임이 시작했는지 안했는지 [3..2..1..]
+
+    [Header("StartCoroutine UI")]
+    public TextMeshProUGUI startCountText; //3..2..1..
+    public GameObject startUIPanel; // 시작전 배경
+
+    private void Start()
+    {
+        StartCoroutine(Countdown());
+    }
+
+    IEnumerator Countdown()
+    {
+        startCountText.text = "3";
+        yield return new WaitForSeconds(1f);
+        startCountText.text = "2";
+        yield return new WaitForSeconds(1f);
+        startCountText.text = "1";
+        yield return new WaitForSeconds(1f);
+        startCountText.text = "START";
+        isGameStart = true;
+        yield return new WaitForSeconds(0.3f);
+        startUIPanel.SetActive(false);
+    }
 
     private void Update()
     {

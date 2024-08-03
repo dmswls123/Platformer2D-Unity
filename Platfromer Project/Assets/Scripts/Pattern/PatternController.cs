@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEngine;
 
 public class PatternController : MonoBehaviour
@@ -11,19 +12,31 @@ public class PatternController : MonoBehaviour
     public int patternIndex = 0;
     public GameObject currentPattern;
 
-    void Start()
+    bool patternStart = true;
+
+    void PatternStart()
     {
-        foreach(var pattern in patterns)
+        ChangePattern();
+        patternStart = false;
+    }
+
+    private void Awake()
+    {
+        foreach (var pattern in patterns)
         {
             pattern.gameObject.SetActive(false);
         }
-
-        ChangePattern();
     }
 
     private void Update()
     {
-        if (currentPattern.activeSelf == false)
+        
+        if(patternStart == true && MainController.instance.isGameStart)
+        {
+            PatternStart();
+        }
+
+        if (MainController.instance.isGameStart && currentPattern.activeSelf == false)
         {
             ChangePattern();
         }
